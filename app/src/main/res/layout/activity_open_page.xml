@@ -63,6 +63,7 @@
         android:textSize="30sp"
         android:text="@string/welcome"
         android:gravity="center"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

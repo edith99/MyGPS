@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/profile_pic" android:title="Change profile picture" android:icon="@drawable/ic_baseline_perm_identity_24"/>
+
+    </group>
+    <group>
+        <item android:id="@+id/logout_menu" android:title="Log out" android:icon="@drawable/ic_baseline_subdirectory_arrow_left_24"/>
+    </group>
+</menu>

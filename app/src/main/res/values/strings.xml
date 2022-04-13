@@ -13,4 +13,10 @@
     <string name="have_an_account">Have an account? Log in</string>
     <string name="confirm_password">Confirm password</string>
     <string name="my_gps">My GPS</string>
+    <string name="name">Name</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_password">Reset password</string>
+    <string name="open_menu">Open</string>
+    <string name="close_menu">Close</string>
+    <string name="remember_me">Remember me</string>
 </resources>
