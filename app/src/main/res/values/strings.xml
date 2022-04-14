@@ -19,4 +19,5 @@
     <string name="open_menu">Open</string>
     <string name="close_menu">Close</string>
     <string name="remember_me">Remember me</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
