@@ -6,14 +6,21 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.Toast;
 
 import com.example.mygps.R;
+import com.example.mygps.service.TargetPosition;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -42,14 +50,21 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private LatLng mOrigin;
-    private LatLng mDestination;
-    private Polyline mPolyline;
+    public GoogleMap mMap;
+    public LatLng mOrigin;
+    public LatLng mDestination;
+    public Polyline mPolyline;
     ArrayList<LatLng> mMarkerPoints;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE=101;
+    private Marker previousMarker = null;
+
+    private int count = 0;
+
+    float Bearing = 0;
+    static Marker carMarker;
+    Bitmap BitMapMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +75,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
+
+//        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.car_marker);
+//        Bitmap b = bitmapdraw.getBitmap();
+//        BitMapMarker = Bitmap.createScaledBitmap(b, 110, 60, false);
+
+        //create tread care se apeleaza la fiecare 10 sec
+        // tread ul contine pozitiile mDestination = targetService.getPosition()
+//        TargetPosition targetPosition = generateDestinations();
+//        Thread threadPositions = new Thread (
+//                new Runnable() {
+//                    public void run() {
+//                        int i = 0;
+//                        while (i<targetPosition.getPositions().size()) {
+//                            mDestination = targetPosition.getPositions().get(i);
+//                            i++;
+//                        }
+//                    }
+//                });
+//        threadPositions.start();
+
     }
     private void fetchLocation() {
         if (ActivityCompat.checkSelfPermission(
@@ -86,22 +121,130 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-//        mOrigin = new LatLng(44.3254021,23.7794961);
-        mDestination = new LatLng(44.3154021,23.7764961);
         mOrigin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(mOrigin).title("I am here!");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        mDestination = new LatLng(44.322181088801834, 23.79738577643466);
         mMap.animateCamera(CameraUpdateFactory.newLatLng(mOrigin));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mOrigin, 15));
-        mMap.addMarker(markerOptions);
+        ComputeLocation(mDestination);
 
-        MarkerOptions markerOptions2 = new MarkerOptions().position(mDestination).title("Destination");
-        mMap.addMarker(markerOptions2);
-        drawRoute();
+        TargetPosition x = new TargetPosition();
+        x.Iteration(this);
+
     }
-    private void drawRoute(){
+
+    public void ComputeLocation(LatLng desiredDestination) {
+
+
+//        TargetPosition targetPosition = generateDestinations();
+//        for (int i=0;i<5;i++){
+//            mDestination = targetPosition.getPositions().get(i);
+//        }
+
+        if (desiredDestination == null)
+            return;
+
+        MarkerOptions markerOptions = new MarkerOptions().position(mOrigin).title("I am here!");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mMap.addMarker(markerOptions);
+
+                if (previousMarker != null && count > 0)
+                    previousMarker.remove();
+
+                MarkerOptions markerOptions2 = new MarkerOptions().position(desiredDestination).title("Destination");
+                Marker currentMarker = mMap.addMarker(markerOptions2);
+                previousMarker = currentMarker;
+                count++;
+                drawRoute(desiredDestination);
+            }
+        });
+
+
+        // car marker added on the map
+//        carMarker = mMap.addMarker(new MarkerOptions().position(mOrigin).
+//                flat(true).icon(BitmapDescriptorFactory.fromBitmap(BitMapMarker)));
+//        Bearing = currentLocation.getBearing();
+//        changePositionSmoothly(carMarker, mDestination, Bearing);
+
+
+
+
+    }
+
+    private TargetPosition generateDestinations(){
+        double targetLat;
+        double targetLong;
+        LatLng dest;
+
+        TargetPosition targetPosition = new TargetPosition();
+        List<LatLng> mockPositions = new ArrayList<>();
+        mockPositions.add(new LatLng(44.323904, 23.794070));
+        mockPositions.add(new LatLng(44.324815, 23.795849));
+        mockPositions.add(new LatLng(44.325818, 23.797817));
+        mockPositions.add(new LatLng(44.325160, 23.798395));
+        mockPositions.add(new LatLng(44.324316, 23.799125));
+
+        targetPosition.setPositions(mockPositions);
+
+//        mockPositions = targetPosition.MockData();
+
+//        targetLat = targetPosition.getLatitude();
+//        targetLong = targetPosition.getLongitude();
+
+//        dest = mockPositions.get(i);
+        return targetPosition;
+    }
+
+//    void changePositionSmoothly(final Marker myMarker, final LatLng newLatLng, final Float bearing) {
+//
+//        final LatLng startPosition = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+//        final LatLng finalPosition = newLatLng;
+//        final Handler handler = new Handler();
+//        final long start = SystemClock.uptimeMillis();
+//        final Interpolator interpolator = new AccelerateDecelerateInterpolator();
+//        final float durationInMs = 10000;
+//        final boolean hideMarker = false;
+//
+//        handler.post(new Runnable() {
+//            long elapsed;
+//            float t;
+//            float v;
+//
+//            @Override
+//            public void run() {
+//                myMarker.setRotation(bearing);
+//                // Calculate progress using interpolator
+//                elapsed = SystemClock.uptimeMillis() - start;
+//                t = elapsed / durationInMs;
+//                v = interpolator.getInterpolation(t);
+//
+//                LatLng currentPosition = new LatLng(
+//                        startPosition.latitude * (1 - t) + finalPosition.latitude * t,
+//                        startPosition.longitude * (1 - t) + finalPosition.longitude * t);
+//
+//                myMarker.setPosition(currentPosition);
+//
+//                // Repeat till progress is complete.
+//                if (t < 1) {
+//                    // Post again 16ms later.
+//                    handler.postDelayed(this, 16);
+//                } else {
+//                    if (hideMarker) {
+//                        myMarker.setVisible(false);
+//                    } else {
+//                        myMarker.setVisible(true);
+//                    }
+//                }
+//            }
+//        });
+//    }
+
+    public void drawRoute(LatLng desiredDestination){
         // Getting URL to the Google Directions API
-        String url = getDirectionsUrl(mOrigin, mDestination);
+        String url = getDirectionsUrl(mOrigin, desiredDestination);
 
         DownloadTask downloadTask = new DownloadTask();
 
@@ -266,5 +409,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(getApplicationContext(),"No route is found", Toast.LENGTH_LONG).show();
         }
     }
+
 
 }
