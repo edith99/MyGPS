@@ -1,15 +1,10 @@
 package com.example.mygps;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
-import com.example.mygps.activities.LoginActivity;
 import com.example.mygps.activities.OpenPageActivity;
-import com.example.mygps.activities.RegisterActivity;
-import com.example.mygps.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +24,4 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
 
     }
-
-
-
-
 }

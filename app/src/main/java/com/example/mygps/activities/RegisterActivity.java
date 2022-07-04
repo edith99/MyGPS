@@ -32,11 +32,7 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView register;
-    private EditText email, password, name;
-    private ProgressBar progressBar;
-
     private FirebaseAuth mAuth;
-
     private ActivityRegisterBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +56,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -69,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
     }
-
     private void registerUser() {
         String email = binding.email.getText().toString().trim();
         String name = binding.name.getText().toString().trim();
@@ -130,7 +124,5 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
-
-
     }
 }

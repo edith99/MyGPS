@@ -5,15 +5,17 @@
       <map>
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/drawable/background_splash_screen.xml" value="0.2" />
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_background.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_forgot_password.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_maps.xml" value="0.264" />
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_maps2.xml" value="0.16770833333333332" />
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_maps3.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_maps4.xml" value="0.1175925925925926" />
-        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_open_page.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_open_page.xml" value="0.1" />
+        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/Users/USER/MyGPS/app/src/main/res/layout/header_menu.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/USER/MyGPS/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
       </map>
     </option>

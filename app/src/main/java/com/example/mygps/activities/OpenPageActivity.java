@@ -1,12 +1,7 @@
 package com.example.mygps.activities;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.mygps.R;
-import com.example.mygps.databinding.ActivityMainBinding;
 import com.example.mygps.databinding.ActivityOpenPageBinding;
 
 public class OpenPageActivity extends AppCompatActivity {

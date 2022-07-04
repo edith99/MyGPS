@@ -18,7 +18,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/ic_wave_up"/>
-
         <View
             android:id="@+id/view_down"
             android:layout_width="wrap_content"
@@ -36,7 +35,7 @@
             android:layout_marginStart="20dp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="100dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             />
@@ -53,34 +52,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="200dp"/>
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:enabled="true"
+            android:textSize="20sp"
+            android:text="Log out"
+            android:backgroundTint="@color/purple_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="120dp"/>
 
-<!--        <Button-->
-<!--            android:id="@+id/logout"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="start"-->
-<!--            android:enabled="true"-->
-<!--            android:textSize="20sp"-->
-<!--            android:text="Log out"-->
-<!--            android:backgroundTint="@color/purple_200"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            android:layout_marginBottom="120dp"/>-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/navigationView"
-        app:headerLayout="@layout/header_menu"
-        app:menu="@menu/main_menu"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="start">
-
-    </com.google.android.material.navigation.NavigationView>
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

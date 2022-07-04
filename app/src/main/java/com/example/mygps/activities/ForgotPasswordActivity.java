@@ -23,7 +23,6 @@ public class ForgotPasswordActivity extends AppCompatActivity{
     private EditText emailText;
     private Button resetPassword;
     private ProgressBar progressBar;
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -46,7 +45,6 @@ public class ForgotPasswordActivity extends AppCompatActivity{
         });
 
     }
-
     private void resetPassword() {
         String email = emailText.getText().toString().trim();
         if(email.isEmpty()){

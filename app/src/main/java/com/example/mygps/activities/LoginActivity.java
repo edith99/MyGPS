@@ -1,5 +1,4 @@
 package com.example.mygps.activities;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,18 +21,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final String FILE_EMAIL = "rememberMe";
-    private TextView register, forgotPassword;
-    private EditText email, password;
     private Button logIn;
-    private ProgressBar progressBar;
-    private CheckBox checkBox;
-
     private FirebaseAuth mAuth;
-
     private ActivityLoginBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +37,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         logIn.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
     }
-
     public void setListeners(){
         binding.newAccount.setOnClickListener(x ->{
             Intent intent = new Intent(this, RegisterActivity.class);
@@ -67,11 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
     private void logInUser() {
         String email = binding.email.getText().toString().trim();
         String password = binding.password.getText().toString().trim();
-
         if(email.isEmpty()){
             binding.email.setError("Email is required!");
             binding.email.requestFocus();
@@ -114,9 +101,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-    }
-
-    private void StoreDataUsingSharedPref(String saveEmail, String savePassword) {
-
     }
 }

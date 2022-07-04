@@ -26,74 +26,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 public class ProfileActivity extends AppCompatActivity {
 
-    private Button logout, map, map2, map3;
+    private Button logout, map;
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;
-
-    //drawer menu
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
-    ActionBarDrawerToggle actionBarDrawerToggle;
-
-    // drawer menu
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-       if (actionBarDrawerToggle.onOptionsItemSelected(item)){
-           return true;
-       }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // drawer menu
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.navigationView);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_menu, R.string.close_menu);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        logout = (Button) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.profile_pic:
-                        //do nothing
-                        //drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.logout_menu:
-                        logout = findViewById(R.id.logout_menu);
-                        logout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                FirebaseAuth.getInstance().signOut();
-                                startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
-                            }
-                        });
-                        break;
-
-                }
-                return true;
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
             }
         });
-
-//        logout = (Button) findViewById(R.id.logout);
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
-//            }
-//        });
 
         map = (Button) findViewById(R.id.map);
         map.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
                 User userProfile = snapshot.getValue(User.class);
                 if(userProfile != null){
                     String name = userProfile.name;
-                    //next atributes for the user
                     greetings.setText("Hi, "+ name + "!");
 
                 }
@@ -133,6 +83,5 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed(){
         moveTaskToBack(true);
     }
-
 
 }
